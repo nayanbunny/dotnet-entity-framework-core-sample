@@ -1,0 +1,55 @@
+﻿@page
+@model DotNet.EFCore.DatabaseFirst.RazorApp.Pages.Employees.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Employee.Id" />
+            <div class="form-group">
+                <label asp-for="Employee.Name" class="control-label"></label>
+                <input asp-for="Employee.Name" class="form-control" />
+                <span asp-validation-for="Employee.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Email" class="control-label"></label>
+                <input asp-for="Employee.Email" class="form-control" />
+                <span asp-validation-for="Employee.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Phone" class="control-label"></label>
+                <input asp-for="Employee.Phone" class="form-control" />
+                <span asp-validation-for="Employee.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.DepartmentId" class="control-label"></label>
+                <select asp-for="Employee.DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
+                <span asp-validation-for="Employee.DepartmentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.IsActive" class="control-label"></label>
+                <input asp-for="Employee.IsActive" class="form-control" />
+                <span asp-validation-for="Employee.IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

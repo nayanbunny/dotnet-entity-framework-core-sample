@@ -1,0 +1,310 @@
+﻿@using DotNet.EFCore.DatabaseFirst.MvcApp.Models;
+@model ResponseViewModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2 class="display-5">DotNet MVC EFCore Database First Approach Sample</h2>
+</div>
+
+<div class="text-center">
+    <label id="statusMessage"></label>
+</div>
+
+<br/>
+
+<!-- Nav pills -->
+<ul class="nav nav-pills nav-justified">
+  <li class="nav-item">
+    <a class="nav-link active" data-bs-toggle="pill" href="#dept">Departments</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="pill" href="#emp">Employees</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="pill" href="#skill">Skills</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="pill" href="#empSkill">Employee Skills</a>
+  </li>
+</ul>
+<br />
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane container active" id="dept">
+    <table class="table table-hover table-bordered" id="departmentTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>IsActive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Departments != null)
+            {
+                foreach(Department dept in Model.Departments)
+                {
+                    <tr id="@dept.Id">
+                        <td>
+                            <label class="read-mode">@dept.Name</label>
+                            <input type="text" placeholder="Name" value="@dept.Name" class="edit-mode hide form-control name" />
+                        </td>
+                        <td>
+                            <label class="read-mode">@dept.IsActive</label>
+                            <input type="checkbox" class="edit-mode hide isActive" checked="@dept.IsActive" />
+                        </td>
+                        <td align="center">
+                            <button class="read-mode btn btn-primary btnEdit">Edit</button>
+                            <button class="read-mode btn btn-danger btnDelete">Delete</button>
+                            <button class="edit-mode hide btn btn-success btnSave">Save</button>
+                            <button class="edit-mode hide btn btn-danger btnCancel">Cancel</button>
+                        </td>
+                    </tr>
+                }
+            }
+            <tr id="">
+                <td>
+                    <input type="text" placeholder="Name" class="form-control name" />
+                </td>
+                <td>
+                    <input type="checkbox" class="isActive" checked />
+                </td>
+                <td align="center">
+                    <button class="btn btn-success btnAdd">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="tab-pane container fade" id="emp">
+      <table class="table table-hover table-bordered" id="employeeTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>IsActive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Employees != null)
+            {
+                foreach(Employee emp in Model.Employees)
+                {
+                    <tr id="@emp.Id">
+                        <td>
+                            <label class=read-mode>@emp.Name</label>
+                            <input type="text" placeholder="Name" value="@emp.Name" class="edit-mode hide form-control name" />
+                        </td>
+                        <td>
+                            <label class=read-mode>@emp.Email</label>
+                            <input type="email" placeholder="Email" value="@emp.Email" class="edit-mode hide form-control email" />
+                        </td>
+                        <td>
+                            <label class=read-mode>@emp.Phone</label>
+                            <input type="tel" placeholder="Phone" value="@emp.Phone" class="edit-mode hide form-control phone" />
+                        </td>
+                        <td>
+                            @{
+                                var department = Model.Departments?.FirstOrDefault(prop => prop.Id == @emp.DepartmentId);
+                                <label class=read-mode>@department?.Name</label>
+                                 <select class="edit-mode hide form-control departmentId">
+                                    <option value="">Please Select</option>
+                                    @foreach(Department dept in Model.Departments)
+                                    {
+                                            if (dept.Id == department?.Id)
+                                            {
+                                                <option value="@dept.Id" selected>@dept.Name</option>       
+                                            }
+                                            else 
+                                            {
+                                                <option value="@dept.Id">@dept.Name</option>       
+                                            }
+                                    }
+                                </select>
+                            }
+                        </td>
+                        <td>
+                            <label class=read-mode>@emp.IsActive</label>
+                            <input type="checkbox" class="edit-mode hide isActive" checked="@emp.IsActive" />    
+                        </td>
+                        <td align="center">
+                            <button class="read-mode btn btn-primary btnEdit">Edit</button>
+                            <button class="read-mode btn btn-danger btnDelete">Delete</button>
+                            <button class="edit-mode hide btn btn-success btnSave">Save</button>
+                            <button class="edit-mode hide btn btn-danger btnCancel">Cancel</button>
+                        </td>
+                    </tr>
+                }
+            }
+            <tr id="">
+                <td>
+                    <input type="text" placeholder="Name" class="form-control name" />
+                </td>
+                <td>
+                    <input type="email" placeholder="Email" class="form-control email" />
+                </td>
+                <td>
+                    <input type="tel" placeholder="Phone" class="form-control phone" />
+                </td>
+                <td>
+                    <select class="form-control departmentId">
+                        <option value="">Please Select</option>
+                        @foreach(Department dept in Model.Departments)
+                        {
+                            <option value=@dept.Id>@dept.Name</option>       
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" class="isActive" checked />
+                </td>
+                <td align="center">
+                    <button class="btn btn-success btnAdd">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="tab-pane container fade" id="skill">
+      <table class="table table-hover table-bordered" id="skillTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>IsActive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Skills != null)
+            {
+                foreach(Skill skill in Model.Skills)
+                {
+                    <tr id="@skill.Id">
+                        <td>
+                            <label class=read-mode>@skill.Name</label>
+                            <input type="text" placeholder="Name" value="@skill.Name" class="edit-mode hide form-control name" />
+                        </td>
+                        <td>
+                            <label class=read-mode>@skill.IsActive</label>
+                            <input type="checkbox" class="edit-mode hide isActive" checked="@skill.IsActive" />
+                        </td>
+                        <td align="center">
+                            <button class="read-mode btn btn-primary btnEdit">Edit</button>
+                            <button class="read-mode btn btn-danger btnDelete">Delete</button>
+                            <button class="edit-mode hide btn btn-success btnSave">Save</button>
+                            <button class="edit-mode hide btn btn-danger btnCancel">Cancel</button>
+                        </td>
+                    </tr>
+                }
+            }
+            <tr id="">
+                <td>
+                    <input type="text" placeholder="Name" class="form-control name" />
+                </td>
+                <td>
+                    <input type="checkbox" class="isActive" checked />
+                </td>
+                <td align="center">
+                    <button class="btn btn-success btnAdd">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="tab-pane container fade" id="empSkill">
+      <table class="table table-hover table-bordered" id="employeeSkillTable">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Skill</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.EmployeeSkills != null)
+            {
+                foreach(EmployeeSkill empSkill in Model.EmployeeSkills)
+                {
+                    <tr id="@empSkill.Id">
+                        <td>
+                            @{
+                                var employee = Model.Employees?.FirstOrDefault(prop => prop.Id == @empSkill.EmployeeId);
+                                <label class=read-mode>@employee?.Name</label>
+                                <select class="edit-mode hide form-control employeeId">
+                                    <option value="">Please Select</option>
+                                    @foreach(Employee emp in Model.Employees)
+                                    {
+                                        if (emp.Id == employee?.Id)
+                                        {
+                                            <option value="@emp.Id" selected>@emp.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@emp.Id">@emp.Name</option>
+                                        }
+                                    }
+                                </select>
+                            }
+                        </td>
+                        <td>
+                            @{
+                                var skill = Model.Skills?.FirstOrDefault(prop => prop.Id == @empSkill.SkillId);
+                                <label class=read-mode>@skill?.Name</label>
+                                <select class="edit-mode hide form-control skillId">
+                                    <option value="">Please Select</option>
+                                    @foreach(Skill skillItem in Model.Skills)
+                                    {
+                                        if (skillItem.Id == skill.Id)
+                                        {
+                                            <option value="@skillItem.Id" selected>@skillItem.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@skillItem.Id">@skillItem.Name</option>       
+                                        }
+                                    }
+                                </select>
+                            }
+                        </td>
+                        <td align="center">
+                            <button class="read-mode btn btn-primary btnEdit">Edit</button>
+                            <button class="read-mode btn btn-danger btnDelete">Delete</button>
+                            <button class="edit-mode hide btn btn-success btnSave">Save</button>
+                            <button class="edit-mode hide btn btn-danger btnCancel">Cancel</button>
+                        </td>
+                    </tr>
+                }
+            }
+            <tr id="">
+                <td>
+                    <select class="form-control employeeId">
+                        <option value="">Please Select</option>
+                        @foreach(Employee emp in Model.Employees)
+                        {
+                            <option value=@emp.Id>@emp.Name</option>       
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control skillId">
+                        <option value="">Please Select</option>
+                        @foreach(Skill skill in Model.Skills)
+                        {
+                            <option value=@skill.Id>@skill.Name</option>       
+                        }
+                    </select>
+                </td>
+                <td align="center">
+                    <button class="btn btn-success btnAdd">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+<br/>

@@ -1,0 +1,31 @@
+﻿@page
+@model DotNet.EFCore.DatabaseFirst.RazorApp.Pages.EmployeeSkills.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>EmployeeSkill</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeSkill.Employee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeSkill.Employee.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeSkill.Skill)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeSkill.Skill.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.EmployeeSkill?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
