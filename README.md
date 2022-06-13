@@ -65,13 +65,13 @@ Language : `C#` <br/>
 
 ## **Execution & Implementation Steps**
 
-#### Code First Sample - [DotNet Entity Framework Core Code First](./CodeFirst/README.md)
+#### Code First Sample - [DotNet Entity Framework Core Code First](./CodeFirst/)
 
-#### Code First Fluent API Sample - [DotNet Entity Framework Core Code First Fluent API](./CodeFirst-FluentApi/README.md)
+#### Code First Fluent API Sample - [DotNet Entity Framework Core Code First Fluent API](./CodeFirst-FluentApi/)
 
-#### Database First Sample - [DotNet Entity Framework Core Database First](./DatabaseFirst/README.md)
+#### Database First Sample - [DotNet Entity Framework Core Database First](./DatabaseFirst/)
 
-#### Model First Sample - [DotNet Entity Framework Core Model First](./ModelFirst/README.md)
+#### Model First Sample - [DotNet Entity Framework Core Model First](./ModelFirst/)
 
 ## References
 
